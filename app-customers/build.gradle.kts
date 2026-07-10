@@ -1,36 +1,53 @@
 plugins {
-    java
-    id("org.springframework.boot") version "4.0.6"
-    id("io.spring.dependency-management") version "1.1.7"
+    id("java")
+    id("io.quarkus") version "3.35.2"
+    id ("io.freefair.lombok") version "9.2.0"
 }
 
-group = "com.example"
-version = "0.0.1-SNAPSHOT"
+group = "org.example"
+version = "unspecified"
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(25)
-    }
-}
+
 
 repositories {
     mavenCentral()
 }
-extra["springCloudVersion"] = "2025.1.1"
+
+val quarkusVersion =  "3.35.2"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-webmvc")
-    implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+    implementation(enforcedPlatform("io.quarkus.platform:quarkus-bom:${quarkusVersion}"))
+//    CDI
+    implementation("io.quarkus:quarkus-rest")
+//    REST
+    implementation("io.quarkus:quarkus-arc")
+    implementation("io.quarkus:quarkus-rest-jsonb")
+    implementation("io.quarkus:quarkus-hibernate-orm")
+    implementation("io.quarkus:quarkus-hibernate-orm-panache")
+    implementation("io.quarkus:quarkus-jdbc-postgresql")
+    implementation("org.modelmapper:modelmapper:3.2.6")
+    implementation("io.quarkus:quarkus-rest-client-jsonb")
+    implementation("io.quarkus:quarkus-rest-client")
+
+//    Service Discovery
+    implementation("io.quarkus:quarkus-smallrye-stork")
+//    implementation("io.smallrye.stork:stork-service-discovery-static-list:2.6.3")
+    implementation("io.smallrye.reactive:smallrye-mutiny-vertx-consul-client")
+    implementation("io.smallrye.stork:stork-service-discovery-consul")
+
+//    Resiliencia
+    implementation("io.quarkus:quarkus-smallrye-fault-tolerance")
+
+    //    Telemetria
+    implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
+
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
-    }
-}
-
-tasks.withType<Test> {
+tasks.test {
     useJUnitPlatform()
 }

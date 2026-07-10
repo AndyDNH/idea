@@ -13,7 +13,10 @@ ENV lANGUAGE=en_US:en
 RUN mkdir /app
 WORKDIR /app
 
-COPY build/libs/app-customers-0.0.1-SNAPSHOT.jar app.jar
+COPY build/quarkus-app/lib/ ./lib
+COPY build/quarkus-app/quarkus/ ./quarkus
+COPY build/quarkus-app/app/ ./app
+COPY build/quarkus-app/quarkus-run.jar app.jar
 
 CMD ["java", "-jar", "app.jar"]
 
