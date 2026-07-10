@@ -1,0 +1,60 @@
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+.kotlin
+
+### IntelliJ IDEA ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+
+# Si quieres ignorar TODO lo de una carpeta pero salvar archivos específicos:
+# Consul:
+/deployment/consul_1.22.7_windows_386/*
+
+# nginx:
+/deployment/nginx-1.31.1/*
+
+# nomad:
+/deployment/nomad_2.0.2_windows_amd64/*
+!/deployment/nomad_2.0.2_windows_amd64/app-customers.nomad
+
+# Ejemplo para Traefik:
+/deployment/traefik_v3.7.1_windows_amd64/*
+!/deployment/traefik_v3.7.1_windows_amd64/traefik.yml
+!/deployment/traefik_v3.7.1_windows_amd64/app-static.yml
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
